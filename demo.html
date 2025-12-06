@@ -1,0 +1,1747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>TechHireX – Smart Tech Hiring Platform</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-alt: #0b1120;
+      --primary: #6366f1;
+      --primary-soft: rgba(99, 102, 241, 0.15);
+      --accent: #22c55e;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --card: #111827;
+      --border: #1f2937;
+      --danger: #f97373;
+      --warning: #facc15;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.85);
+      --shadow-sm: 0 10px 30px rgba(15, 23, 42, 0.7);
+      --transition-fast: 0.2s ease-out;
+      --transition-slow: 0.35s ease-out;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top left, #1d2538 0, #020617 55%);
+      color: var(--text);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* Layout */
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ================= NAVBAR ================= */
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(
+        to bottom,
+        rgba(15, 23, 42, 0.9),
+        rgba(15, 23, 42, 0.35),
+        transparent
+      );
+      border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 0;
+      gap: 1rem;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 20% 0, #c4b5fd, #4f46e5, #0ea5e9);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 0 30px rgba(129, 140, 248, 0.8);
+      flex-shrink: 0;
+    }
+
+    .logo-badge span {
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: #e5e7eb;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 0.05rem;
+    }
+
+    .brand-title {
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      font-size: 1rem;
+      text-transform: uppercase;
+    }
+
+    .brand-subtitle {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.4rem;
+      font-size: 0.9rem;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      position: relative;
+      padding-bottom: 0.1rem;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -0.3rem;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(to right, #4f46e5, #22c55e);
+      transition: width var(--transition-fast);
+      border-radius: 999px;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .btn {
+      border: 1px solid transparent;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      padding: 0.55rem 1.2rem;
+      cursor: pointer;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        background var(--transition-fast),
+        border-color var(--transition-fast),
+        color var(--transition-fast);
+    }
+
+    .btn-ghost {
+      background: rgba(15, 23, 42, 0.85);
+      border-color: rgba(148, 163, 184, 0.4);
+      color: var(--muted);
+    }
+
+    .btn-ghost:hover {
+      color: var(--text);
+      border-color: rgba(129, 140, 248, 0.8);
+      background: radial-gradient(circle at top left, #020617, #020617);
+      box-shadow: var(--shadow-sm);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: radial-gradient(circle at 0 0, #a855f7, #4f46e5, #0ea5e9);
+      color: #f9fafb;
+      box-shadow: 0 16px 40px rgba(79, 70, 229, 0.65);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1.5px) scale(1.01);
+      box-shadow: 0 22px 55px rgba(79, 70, 229, 0.75);
+      filter: brightness(1.05);
+    }
+
+    .badge-pill {
+      font-size: 0.75rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      background: rgba(34, 197, 94, 0.11);
+      color: #bbf7d0;
+      border: 1px solid rgba(34, 197, 94, 0.3);
+    }
+
+    /* mobile nav icon – non-functional placeholder */
+    .nav-menu-icon {
+      display: none;
+      width: 30px;
+      height: 24px;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+
+    .nav-menu-icon span {
+      height: 3px;
+      width: 100%;
+      border-radius: 999px;
+      background: #e5e7eb;
+    }
+
+    /* ================= HERO SECTION ================= */
+
+    .hero {
+      padding: 4.5rem 0 3.5rem;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+      align-items: center;
+      gap: 3.5rem;
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.18rem 0.25rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: radial-gradient(circle at left, #111827, #020617);
+      margin-bottom: 1rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .hero-kicker span {
+      font-size: 0.7rem;
+      padding: 0.18rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.1);
+      color: #7dd3fc;
+      border: 1px solid rgba(56, 189, 248, 0.5);
+    }
+
+    .hero-title {
+      font-size: clamp(2.4rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .hero-title span {
+      background: linear-gradient(to right, #a5b4fc, #38bdf8, #22c55e);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      color: var(--muted);
+      max-width: 34rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.98rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.75rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.75rem;
+    }
+
+    .hero-meta span strong {
+      color: #e5e7eb;
+      font-size: 0.9rem;
+    }
+
+    /* Hero right: dashboard mock */
+
+    .hero-panel {
+      border-radius: 26px;
+      background: radial-gradient(circle at top left, #111827, #020617);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      padding: 1.4rem 1.4rem 1.5rem;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .hero-panel::before {
+      content: "";
+      width: 260px;
+      height: 260px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.25), transparent);
+      position: absolute;
+      top: -80px;
+      right: -40px;
+      z-index: -1;
+      filter: blur(2px);
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.1rem;
+    }
+
+    .panel-header-left {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .status-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.28);
+    }
+
+    .panel-header-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .panel-header-sub {
+      font-size: 0.75rem;
+      color: #9ca3af;
+    }
+
+    .panel-chip {
+      font-size: 0.7rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(129, 140, 248, 0.6);
+      color: #c7d2fe;
+      background: rgba(79, 70, 229, 0.1);
+    }
+
+    .panel-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .trial-card {
+      background: radial-gradient(circle at top left, #111827, #020617);
+      border-radius: var(--radius-lg);
+      padding: 0.9rem;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .trial-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.18rem 0.55rem;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      background: rgba(56, 189, 248, 0.08);
+      color: #7dd3fc;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      margin-bottom: 0.45rem;
+    }
+
+    .trial-chip svg {
+      width: 12px;
+      height: 12px;
+    }
+
+    .trial-role {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.1rem;
+    }
+
+    .trial-company {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .pill {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: #cbd5f5;
+    }
+
+    .progress-wrap {
+      margin-bottom: 0.8rem;
+    }
+
+    .progress-label-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-bottom: 0.2rem;
+    }
+
+    .progress-bar {
+      position: relative;
+      height: 7px;
+      border-radius: 999px;
+      background: #020617;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 72%;
+      background: linear-gradient(to right, #4f46e5, #22c55e);
+      border-radius: inherit;
+    }
+
+    .checklist {
+      list-style: none;
+      display: grid;
+      gap: 0.35rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 0.8rem;
+    }
+
+    .checklist li::before {
+      content: "✔";
+      color: #a5b4fc;
+      margin-right: 0.4rem;
+      font-size: 0.7rem;
+    }
+
+    .trial-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+
+    .trial-footer span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .trial-footer span svg {
+      width: 12px;
+      height: 12px;
+    }
+
+    .trial-score {
+      font-weight: 600;
+      color: #bbf7d0;
+    }
+
+    .mini-stats {
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    .mini-card {
+      padding: 0.65rem 0.7rem;
+      border-radius: var(--radius-md);
+      border: 1px dashed rgba(148, 163, 184, 0.35);
+      background: rgba(15, 23, 42, 0.85);
+      font-size: 0.75rem;
+    }
+
+    .mini-label {
+      color: var(--muted);
+      margin-bottom: 0.1rem;
+    }
+
+    .mini-value {
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .mini-pill {
+      font-size: 0.65rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      border: 1px solid rgba(34, 197, 94, 0.5);
+      color: #bbf7d0;
+      background: rgba(22, 163, 74, 0.1);
+    }
+
+    /* ================= FEATURES ================= */
+
+    .section {
+      padding: 3.5rem 0;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 2rem;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .section-kicker {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: #a5b4fc;
+      margin-bottom: 0.35rem;
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
+
+    .section-subtitle {
+      font-size: 0.9rem;
+      color: var(--muted);
+      max-width: 28rem;
+    }
+
+    .section-link {
+      font-size: 0.85rem;
+      color: #93c5fd;
+      cursor: pointer;
+    }
+
+    .section-link:hover {
+      text-decoration: underline;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.5rem;
+    }
+
+    .feature-card {
+      background: var(--card);
+      border-radius: var(--radius-lg);
+      padding: 1.1rem 1.1rem 1rem;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .feature-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        circle at top right,
+        rgba(99, 102, 241, 0.2),
+        transparent 60%
+      );
+      opacity: 0;
+      transition: opacity var(--transition-slow);
+      z-index: -1;
+    }
+
+    .feature-card:hover::before {
+      opacity: 1;
+    }
+
+    .feature-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 0.7rem;
+      background: rgba(30, 64, 175, 0.2);
+    }
+
+    .feature-label {
+      font-size: 0.75rem;
+      color: #93c5fd;
+      margin-bottom: 0.2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .feature-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+    }
+
+    .feature-text {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .feature-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      font-size: 0.7rem;
+    }
+
+    .tag {
+      padding: 0.16rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    /* ================= TRIAL MODE (UNIQUE FEATURE) ================= */
+
+    .trial-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: 2rem;
+      align-items: flex-start;
+    }
+
+    .trial-steps {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .step-card {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.7rem 0.85rem;
+      padding: 0.9rem 1rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: rgba(15, 23, 42, 0.95);
+      box-shadow: 0 14px 40px rgba(15, 23, 42, 0.7);
+    }
+
+    .step-number {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      border: 1px solid rgba(129, 140, 248, 0.8);
+      display: grid;
+      place-items: center;
+      font-size: 0.8rem;
+      color: #c7d2fe;
+      background: rgba(30, 64, 175, 0.3);
+    }
+
+    .step-title {
+      font-size: 0.94rem;
+      font-weight: 600;
+      margin-bottom: 0.1rem;
+    }
+
+    .step-text {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .step-meta {
+      font-size: 0.74rem;
+      color: #93c5fd;
+    }
+
+    .trial-form-card {
+      background: radial-gradient(circle at top, #020617, #020617);
+      border-radius: var(--radius-lg);
+      padding: 1.2rem 1.2rem 1.15rem;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .trial-form-header {
+      margin-bottom: 0.9rem;
+    }
+
+    .trial-form-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    .trial-form-sub {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .form-group {
+      margin-bottom: 0.7rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.75rem;
+      color: #9ca3af;
+      margin-bottom: 0.25rem;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+      width: 100%;
+      padding: 0.5rem 0.65rem;
+      border-radius: 10px;
+      border: 1px solid rgba(55, 65, 81, 0.85);
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7eb;
+      font-size: 0.8rem;
+      outline: none;
+      transition: border-color var(--transition-fast),
+        box-shadow var(--transition-fast),
+        background var(--transition-fast);
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      border-color: #6366f1;
+      box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.3);
+      background: rgba(15, 23, 42, 1);
+    }
+
+    .form-textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.7rem;
+    }
+
+    .form-hint {
+      font-size: 0.7rem;
+      color: #6b7280;
+      margin-top: 0.15rem;
+    }
+
+    .trial-form-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 0.85rem;
+      font-size: 0.74rem;
+      color: var(--muted);
+    }
+
+    .trial-meter {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .trial-meter-bar {
+      width: 70px;
+      height: 6px;
+      border-radius: 999px;
+      background: #020617;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .trial-meter-fill {
+      width: 55%;
+      height: 100%;
+      background: linear-gradient(to right, #22c55e, #a3e635);
+      border-radius: inherit;
+    }
+
+    /* ================= JOBS ================= */
+
+    .jobs-grid {
+      display: grid;
+      grid-template-columns: 2fr 1.3fr;
+      gap: 1.5rem;
+      align-items: flex-start;
+    }
+
+    .jobs-list {
+      display: grid;
+      gap: 0.9rem;
+    }
+
+    .job-card {
+      padding: 0.9rem 0.9rem 0.8rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.95);
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      transition: transform var(--transition-fast),
+        box-shadow var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .job-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-soft);
+      border-color: rgba(129, 140, 248, 0.7);
+    }
+
+    .job-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.1rem;
+    }
+
+    .job-title {
+      font-size: 0.96rem;
+      font-weight: 600;
+    }
+
+    .job-tag {
+      font-size: 0.7rem;
+      padding: 0.18rem 0.5rem;
+      border-radius: 999px;
+      border: 1px solid rgba(52, 211, 153, 0.6);
+      background: rgba(5, 150, 105, 0.15);
+      color: #a7f3d0;
+    }
+
+    .job-meta {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .job-meta span {
+      margin-right: 0.65rem;
+    }
+
+    .job-row-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .jobs-sidebar {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: radial-gradient(circle at top left, #020617, #020617);
+      padding: 1.1rem 1rem;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .jobs-sidebar-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+    }
+
+    .filter-group {
+      margin-bottom: 0.7rem;
+    }
+
+    .filter-label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 0.25rem;
+      display: block;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      font-size: 0.72rem;
+    }
+
+    .chip {
+      padding: 0.18rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      background: rgba(15, 23, 42, 0.95);
+      cursor: pointer;
+    }
+
+    .chip.active {
+      border-color: rgba(99, 102, 241, 0.8);
+      background: rgba(79, 70, 229, 0.3);
+      color: #e5e7eb;
+    }
+
+    /* ================= TESTIMONIALS ================= */
+
+    .testimonials {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .quote-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: radial-gradient(circle at top left, #020617, #020617);
+      padding: 1.3rem 1.2rem;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .quote-card::before {
+      content: "“";
+      position: absolute;
+      font-size: 7rem;
+      opacity: 0.06;
+      top: -30px;
+      right: 25px;
+    }
+
+    .quote-text {
+      font-size: 0.9rem;
+      color: #e5e7eb;
+      margin-bottom: 0.8rem;
+    }
+
+    .quote-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .quote-author {
+      font-weight: 600;
+      color: #e5e7eb;
+    }
+
+    .quote-role {
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    .rating {
+      font-size: 0.8rem;
+      color: #fde68a;
+    }
+
+    .logo-cloud {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.8rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .logo-pill {
+      padding: 0.6rem 0.7rem;
+      border-radius: var(--radius-md);
+      border: 1px dashed rgba(148, 163, 184, 0.48);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    /* ================= FOOTER ================= */
+
+    .footer {
+      border-top: 1px solid rgba(31, 41, 55, 0.9);
+      padding: 1.8rem 0 1.4rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: auto;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+      text-decoration: underline;
+    }
+
+    /* ================= RESPONSIVE ================= */
+
+    @media (max-width: 960px) {
+      .hero-inner {
+        grid-template-columns: 1.1fr 1fr;
+        gap: 2rem;
+      }
+
+      .card-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .jobs-grid,
+      .trial-layout,
+      .testimonials {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .nav-links {
+        display: none; /* static design: hide links on mobile */
+      }
+
+      .nav-menu-icon {
+        display: flex;
+      }
+
+      .hero {
+        padding-top: 3.2rem;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .hero-inner {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero-panel {
+        order: -1;
+      }
+
+      .card-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .jobs-grid,
+      .trial-layout {
+        gap: 1.3rem;
+      }
+
+      .section {
+        padding: 3rem 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav-inner {
+        padding: 0.75rem 0;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .hero-actions .btn {
+        justify-content: center;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- =============== NAVBAR =============== -->
+    <header class="nav">
+      <div class="container nav-inner">
+        <div class="nav-left">
+          <div class="logo-badge">
+            <span>Tx</span>
+          </div>
+          <div class="brand">
+            <span class="brand-title">TechHireX</span>
+            <span class="brand-subtitle">Skill-first tech hiring</span>
+          </div>
+        </div>
+
+        <nav class="nav-links">
+          <a href="#hero">Home</a>
+          <a href="#features">Features</a>
+          <a href="#trial">Simulation Mode</a>
+          <a href="#jobs">Jobs</a>
+          <a href="#testimonials">Stories</a>
+        </nav>
+
+        <div class="nav-cta">
+          <span class="badge-pill">New: Career Simulation Mode</span>
+          <button class="btn btn-ghost">Sign in</button>
+          <button class="btn btn-primary">
+            Post a Job
+            <span>→</span>
+          </button>
+          <div class="nav-menu-icon" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- =============== HERO =============== -->
+    <main>
+      <section class="hero" id="hero">
+        <div class="container hero-inner">
+          <div>
+            <div class="hero-kicker">
+              <span>Beta</span> Now hiring based on real work, not just resumes.
+            </div>
+            <h1 class="hero-title">
+              Tech hiring that starts with
+              <span>skills &amp; simulation</span>.
+            </h1>
+            <p class="hero-subtitle">
+              TechHireX lets companies run
+              <strong>24–72 hour role simulations</strong> so they can see how
+              candidates perform on real tasks before sending an offer.
+              Candidates get fair, skill-first evaluation—not buzzword bingo.
+            </p>
+
+            <div class="hero-actions">
+              <button class="btn btn-primary">
+                I’m a Candidate
+                <span>🚀</span>
+              </button>
+              <button class="btn btn-ghost">
+                I’m a Recruiter
+                <span>👔</span>
+              </button>
+            </div>
+
+            <div class="hero-meta">
+              <span><strong>3× faster</strong> time-to-hire</span>
+              <span><strong>40% less</strong> bad hires</span>
+              <span><strong>100% transparent</strong> skill proof</span>
+            </div>
+          </div>
+
+          <!-- Right Hero Panel -->
+          <aside class="hero-panel" aria-label="Simulation dashboard preview">
+            <div class="panel-header">
+              <div class="panel-header-left">
+                <div class="status-dot"></div>
+                <div>
+                  <div class="panel-header-title">Career Simulation Mode</div>
+                  <div class="panel-header-sub">Full-stack Engineer · Trial</div>
+                </div>
+              </div>
+              <div class="panel-chip">Live · 01:42:19 remaining</div>
+            </div>
+
+            <div class="panel-grid">
+              <!-- Trial Card -->
+              <div class="trial-card">
+                <div class="trial-chip">
+                  <!-- tiny svg icon -->
+                  <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      fill="currentColor"
+                      d="M5 2a2 2 0 0 0-2 2v12l7-3.5L17 16V4a2 2 0 0 0-2-2H5Z"
+                    />
+                  </svg>
+                  Trial Project · 48h
+                </div>
+                <div class="trial-role">Build a feature flags dashboard</div>
+                <div class="trial-company">CloudShift · Remote · Simulation</div>
+
+                <div class="pill-row">
+                  <span class="pill">React</span>
+                  <span class="pill">Node.js</span>
+                  <span class="pill">REST APIs</span>
+                  <span class="pill">Git workflow</span>
+                </div>
+
+                <div class="progress-wrap">
+                  <div class="progress-label-row">
+                    <span>Progress</span>
+                    <span>3 / 5 tasks</span>
+                  </div>
+                  <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                  </div>
+                </div>
+
+                <ul class="checklist">
+                  <li>Dashboard UI implemented</li>
+                  <li>API integration in progress</li>
+                  <li>Unit tests pending</li>
+                </ul>
+
+                <div class="trial-footer">
+                  <span>
+                    <!-- clock icon -->
+                    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        fill="currentColor"
+                        d="M10 2a8 8 0 1 0 .002 16.002A8 8 0 0 0 10 2Zm0 2a6 6 0 1 1 0 12.001A6 6 0 0 1 10 4Zm-.75 1.75v4.25c0 .3.168.576.437.707l3 1.5l.67-1.34L10.75 9.3V5.75H9.25Z"
+                      />
+                    </svg>
+                    1h 42m left
+                  </span>
+                  <span class="trial-score">Performance score · 82%</span>
+                </div>
+              </div>
+
+              <!-- Mini Stats -->
+              <div class="mini-stats">
+                <div class="mini-card">
+                  <div class="mini-label">Candidate signal</div>
+                  <div class="mini-value">
+                    Strong match
+                    <span class="mini-pill">Top 7%</span>
+                  </div>
+                </div>
+                <div class="mini-card">
+                  <div class="mini-label">Risk of mis-hire</div>
+                  <div class="mini-value">
+                    Low
+                    <span style="color: var(--accent)">↓ -46%</span>
+                  </div>
+                </div>
+                <div class="mini-card">
+                  <div class="mini-label">Next action</div>
+                  <div class="mini-value">
+                    Auto-schedule hiring call
+                    <span>📅</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- =============== FEATURES SECTION =============== -->
+      <section class="section" id="features">
+        <div class="container">
+          <div class="section-header">
+            <div>
+              <div class="section-kicker">For teams &amp; talent</div>
+              <h2 class="section-title">Everything you need to hire like a pro.</h2>
+              <p class="section-subtitle">
+                TechHireX combines vetted profiles, skill assessments, and our
+                unique Career Simulation Mode into one streamlined hiring
+                experience for both recruiters and candidates.
+              </p>
+            </div>
+            <div>
+              <button class="btn btn-ghost">View full feature list →</button>
+            </div>
+          </div>
+
+          <div class="card-grid">
+            <article class="feature-card">
+              <div class="feature-icon">🧑‍💻</div>
+              <div class="feature-label">Candidates</div>
+              <h3 class="feature-title">Skill-first Profiles</h3>
+              <p class="feature-text">
+                Go beyond buzzwords. Add projects, GitHub links, trials,
+                assessment scores and verified skills directly to your profile.
+              </p>
+              <div class="feature-meta">
+                <div class="tag-row">
+                  <span class="tag">Auto-score</span>
+                  <span class="tag">GitHub import</span>
+                </div>
+                <span>3 min setup</span>
+              </div>
+            </article>
+
+            <article class="feature-card">
+              <div class="feature-icon">🏢</div>
+              <div class="feature-label">Recruiters</div>
+              <h3 class="feature-title">Smart Shortlisting</h3>
+              <p class="feature-text">
+                Filter candidates by verified skills, trial performance, stack
+                match, timezone and compensation in a single, powerful search.
+              </p>
+              <div class="feature-meta">
+                <div class="tag-row">
+                  <span class="tag">Skill filters</span>
+                  <span class="tag">ATS-ready</span>
+                </div>
+                <span>Reduce mis-hires</span>
+              </div>
+            </article>
+
+            <article class="feature-card">
+              <div class="feature-icon">🎮</div>
+              <div class="feature-label">Unique feature</div>
+              <h3 class="feature-title">Career Simulation Mode</h3>
+              <p class="feature-text">
+                Run 24–72 hour role simulations where candidates complete
+                realistic tasks, collaborate, and ship. Hire based on actual
+                performance—not gut feeling.
+              </p>
+              <div class="feature-meta">
+                <div class="tag-row">
+                  <span class="tag">Real tasks</span>
+                  <span class="tag">Scorecard</span>
+                  <span class="tag">Transparent</span>
+                </div>
+                <span>Patent-worthy idea</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- =============== TRIAL / SIMULATION SECTION =============== -->
+      <section class="section" id="trial">
+        <div class="container">
+          <div class="section-header">
+            <div>
+              <div class="section-kicker">Career simulation mode</div>
+              <h2 class="section-title">See how people actually work.</h2>
+              <p class="section-subtitle">
+                Turn job posts into short, structured simulations. Candidates
+                join a trial, complete real tasks, and you get a performance
+                report you can trust.
+              </p>
+            </div>
+            <a class="section-link" href="#hero">
+              Try a sample simulation as candidate →
+            </a>
+          </div>
+
+          <div class="trial-layout">
+            <!-- Steps -->
+            <div class="trial-steps">
+              <article class="step-card">
+                <div class="step-number">1</div>
+                <div>
+                  <h3 class="step-title">Create a trial job post</h3>
+                  <p class="step-text">
+                    Pick a role, define 3–5 realistic tasks, set duration and
+                    evaluation criteria. TechHireX handles the structure,
+                    scoring and candidate guidance automatically.
+                  </p>
+                  <p class="step-meta">For Recruiters · Under 5 minutes</p>
+                </div>
+              </article>
+
+              <article class="step-card">
+                <div class="step-number">2</div>
+                <div>
+                  <h3 class="step-title">Candidates join the simulation</h3>
+                  <p class="step-text">
+                    Shortlisted candidates get access to a focused workspace:
+                    tasks board, docs, submissions, and communication in one
+                    place—no messy email threads.
+                  </p>
+                  <p class="step-meta">For Candidates · Transparent rules</p>
+                </div>
+              </article>
+
+              <article class="step-card">
+                <div class="step-number">3</div>
+                <div>
+                  <h3 class="step-title">Review performance &amp; hire</h3>
+                  <p class="step-text">
+                    Get a clean performance report: code quality, completion
+                    rate, communication, time management and collaboration
+                    score—ready for the final call.
+                  </p>
+                  <p class="step-meta">For Teams · Confident decisions</p>
+                </div>
+              </article>
+            </div>
+
+            <!-- Trial request form (UI only, no backend) -->
+            <aside class="trial-form-card">
+              <div class="trial-form-header">
+                <h3 class="trial-form-title">Spin up a trial in minutes</h3>
+                <p class="trial-form-sub">
+                  This is a static prototype form. In a full project, you’ll
+                  connect it to your backend to actually create live
+                  simulations.
+                </p>
+              </div>
+
+              <form action="javascript:void(0)">
+                <div class="form-group">
+                  <label class="form-label" for="company">Company name</label>
+                  <input
+                    class="form-input"
+                    id="company"
+                    type="text"
+                    placeholder="e.g. CloudShift Technologies"
+                  />
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label" for="role">Role</label>
+                    <input
+                      class="form-input"
+                      id="role"
+                      type="text"
+                      placeholder="e.g. Senior React Engineer"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="duration">Trial duration</label>
+                    <select class="form-select" id="duration">
+                      <option>24 hours</option>
+                      <option selected>48 hours</option>
+                      <option>72 hours</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label" for="slots">Slots available</label>
+                    <input
+                      class="form-input"
+                      id="slots"
+                      type="number"
+                      min="1"
+                      value="5"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="level">Experience level</label>
+                    <select class="form-select" id="level">
+                      <option>Junior</option>
+                      <option selected>Mid-level</option>
+                      <option>Senior</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="stack">
+                    Tech stack (comma separated)
+                  </label>
+                  <input
+                    class="form-input"
+                    id="stack"
+                    type="text"
+                    placeholder="React, Node.js, PostgreSQL, AWS"
+                  />
+                  <p class="form-hint">
+                    Used to automatically match and invite relevant candidates.
+                  </p>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="tasks">
+                    Short description of the trial tasks
+                  </label>
+                  <textarea
+                    class="form-textarea"
+                    id="tasks"
+                    placeholder="e.g. Build a feature flags dashboard with role-based access and basic analytics..."
+                  ></textarea>
+                </div>
+
+                <div class="trial-form-footer">
+                  <div>
+                    <button class="btn btn-primary" type="submit">
+                      Preview trial workspace
+                    </button>
+                    <p class="form-hint">
+                      No account created. This is static UI for your project
+                      demo.
+                    </p>
+                  </div>
+                  <div class="trial-meter">
+                    <span>Mis-hire risk</span>
+                    <div class="trial-meter-bar">
+                      <div class="trial-meter-fill"></div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- =============== JOBS SECTION =============== -->
+      <section class="section" id="jobs">
+        <div class="container">
+          <div class="section-header">
+            <div>
+              <div class="section-kicker">Live sample jobs</div>
+              <h2 class="section-title">Try the hiring flow from both sides.</h2>
+              <p class="section-subtitle">
+                The cards below are static examples to show how your real
+                platform will work: jobs, simulations, candidates and filters
+                together.
+              </p>
+            </div>
+            <button class="btn btn-ghost">View candidate view →</button>
+          </div>
+
+          <div class="jobs-grid">
+            <!-- Jobs List -->
+            <div class="jobs-list">
+              <article class="job-card">
+                <div class="job-title-row">
+                  <h3 class="job-title">Senior React Engineer</h3>
+                  <span class="job-tag">Trial + Offer</span>
+                </div>
+                <div class="job-meta">
+                  <span>CloudShift · Remote</span>
+                  <span>₹28–35 LPA</span>
+                  <span>Full-time</span>
+                </div>
+                <div class="pill-row">
+                  <span class="pill">React</span>
+                  <span class="pill">TypeScript</span>
+                  <span class="pill">GraphQL</span>
+                </div>
+                <div class="job-row-footer">
+                  <span>48h simulation · 3 tasks</span>
+                  <span>23 candidates in trial</span>
+                </div>
+              </article>
+
+              <article class="job-card">
+                <div class="job-title-row">
+                  <h3 class="job-title">Backend Engineer (Node.js)</h3>
+                  <span class="job-tag">Simulation first</span>
+                </div>
+                <div class="job-meta">
+                  <span>Ledgerly · Bengaluru</span>
+                  <span>₹20–28 LPA</span>
+                  <span>Hybrid</span>
+                </div>
+                <div class="pill-row">
+                  <span class="pill">Node.js</span>
+                  <span class="pill">PostgreSQL</span>
+                  <span class="pill">Microservices</span>
+                </div>
+                <div class="job-row-footer">
+                  <span>72h simulation · 4 tasks</span>
+                  <span>Shortlist in 5 days</span>
+                </div>
+              </article>
+
+              <article class="job-card">
+                <div class="job-title-row">
+                  <h3 class="job-title">Product Designer (UI/UX)</h3>
+                  <span class="job-tag">Portfolio + Trial</span>
+                </div>
+                <div class="job-meta">
+                  <span>NimbusPay · Remote</span>
+                  <span>₹18–24 LPA</span>
+                  <span>Full-time</span>
+                </div>
+                <div class="pill-row">
+                  <span class="pill">Figma</span>
+                  <span class="pill">Design systems</span>
+                  <span class="pill">User research</span>
+                </div>
+                <div class="job-row-footer">
+                  <span>24h simulation · 2 tasks</span>
+                  <span>UI challenge this week</span>
+                </div>
+              </article>
+            </div>
+
+            <!-- Filters Sidebar -->
+            <aside class="jobs-sidebar">
+              <h3 class="jobs-sidebar-title">Filter by what matters.</h3>
+
+              <div class="filter-group">
+                <label class="filter-label">Role type</label>
+                <div class="chip-row">
+                  <span class="chip active">Frontend</span>
+                  <span class="chip">Backend</span>
+                  <span class="chip">Full-stack</span>
+                  <span class="chip">Design</span>
+                </div>
+              </div>
+
+              <div class="filter-group">
+                <label class="filter-label">Simulation length</label>
+                <div class="chip-row">
+                  <span class="chip">24h</span>
+                  <span class="chip active">48h</span>
+                  <span class="chip">72h</span>
+                </div>
+              </div>
+
+              <div class="filter-group">
+                <label class="filter-label">Work setup</label>
+                <div class="chip-row">
+                  <span class="chip">Remote</span>
+                  <span class="chip">Hybrid</span>
+                  <span class="chip">On-site</span>
+                </div>
+              </div>
+
+              <div class="filter-group">
+                <label class="filter-label">Skill match</label>
+                <div class="chip-row">
+                  <span class="chip">80%+ Match</span>
+                  <span class="chip">60%+ Match</span>
+                  <span class="chip">All</span>
+                </div>
+              </div>
+
+              <p class="form-hint">
+                In a real app, these filters would trigger API calls to your
+                backend and update the job list.
+              </p>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- =============== TESTIMONIALS SECTION =============== -->
+      <section class="section" id="testimonials">
+        <div class="container">
+          <div class="section-header">
+            <div>
+              <div class="section-kicker">Social proof</div>
+              <h2 class="section-title">Why teams love simulation hiring.</h2>
+              <p class="section-subtitle">
+                These are demo testimonials. You can replace them with real
+                feedback once your platform is live or tested in college demos.
+              </p>
+            </div>
+          </div>
+
+          <div class="testimonials">
+            <article class="quote-card">
+              <p class="quote-text">
+                “With TechHireX, we finally see how engineers think before we
+                send an offer. The simulation reports are clear, fair, and easy
+                to explain to stakeholders. It has almost eliminated our mis-hires.”
+              </p>
+              <div class="quote-meta">
+                <div>
+                  <div class="quote-author">Anjali Mehta</div>
+                  <div class="quote-role">Head of Engineering · NimbusPay</div>
+                </div>
+                <div class="rating">★★★★★ 4.9/5</div>
+              </div>
+            </article>
+
+            <div class="logo-cloud">
+              <div class="logo-pill">
+                <strong>120+</strong> simulation-based hires completed in test
+                environments.
+              </div>
+              <div class="logo-pill">
+                <strong>3.2× faster</strong> time-to-hire in pilot teams.
+              </div>
+              <div class="logo-pill">
+                <strong>40% fewer</strong> candidates dropping off in hiring.
+              </div>
+              <div class="logo-pill">
+                <strong>100% clarity</strong> on why a candidate was selected.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- =============== FOOTER =============== -->
+    <footer class="footer">
+      <div class="container footer-inner">
+        <span>© 2025 TechHireX · Built as a student project concept.</span>
+        <div class="footer-links">
+          <a href="#hero">Home</a>
+          <a href="#features">Features</a>
+          <a href="#trial">Simulation Mode</a>
+          <a href="#jobs">Jobs</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
