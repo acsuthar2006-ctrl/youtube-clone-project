@@ -19,6 +19,12 @@ p {
   font-size: 12px;
 }
 
+.container {}
+.video-info-grid {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+}
+
 .video-preview {
   display: inline-block;
   width: 300px;
@@ -30,6 +36,7 @@ p {
 .video-info-col {
   display: inline-block;
   width: 250px;
+  padding: 0 0 0 10px;
 }
 
 .video-title {
@@ -47,7 +54,7 @@ p {
   color: rgb(100, 100, 100);
 }
 
-.channel-logo-col {
+.channel-logo-col { 
   display: inline-block;
   width: 30px;
   vertical-align: top;
