@@ -2,10 +2,6 @@
   margin: 0;
 }
 
-.search-bar {
-  display: block;
-}
-
 .thumbnail {
   width: 300px;
   display: block;
@@ -24,11 +20,12 @@ a {
 
 .container {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  column-gap: 10px;
-  row-gap: 20px;
-  margin: 20px 0 0 20px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 300px));
+  gap: 20px;
+  margin: 0 0 0 80px;
+  border: 30px solid rgb(249, 249, 249);
 }
+
 .video-info-grid {
   display: grid;
   grid-template-columns: 40px 1fr;
@@ -41,13 +38,14 @@ a {
 
 .video-info-col {
   display: inline-block;
-  width: 250px;
+  width: 100%;
   padding: 0 0 0 10px;
 }
 
+
 .video-title {
   font-weight: bold;
-  width: 100%;
+  width: 90%;
   margin-bottom: 20px;
 }
 
@@ -69,5 +67,66 @@ a {
 
 .channel-logo {
   width: 30px;
+  border-radius: 50%;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px; 
+  margin: 10px 0 0 0 ;
+}
+
+.left-section {
+  display: flex;
+  align-items: center;
+}
+
+.menu-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+ 
+.youtube-logo {
+  height: 24px;
+  cursor: pointer;
+}
+.middle-section {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+}
+
+.search-bar {
+  width: 25%;
+  padding: 8px 12px;
+  border: 1px solid rgb(204, 204, 204);
+  border-radius: 2px;
+} 
+.voice-search-btn {
+  width: 36px;
+  height: 36px;
+  margin-left: 10px;
+  border: 1px solid rgb(249, 249, 249);
+  border-radius: 50%;
+  cursor: pointer;
+}
+.voice-search-icon {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.right-section img {
+  width: 24px;
+  height: 24px;
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.profile-icon {
   border-radius: 50%;
 }
